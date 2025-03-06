@@ -1,84 +1,63 @@
 const pokemonList = document.getElementById('pokemonList');
 const loadMoreButton = document.getElementById('loadMoreButton');
-const maxRecords = 160
 const limit = 10;
 let offset = 0;
 
+function createPokemonElement(pokemon) {
+    const li = document.createElement('li');
+    li.classList.add('pokemon', pokemon.type);
+    li.onclick = () => goToDetails(pokemon.number);
 
-function loadPokemonItens(offset, limit) {
-    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-        const newHTML = pokemons.map((pokemon) => `
-            <li class="pokemon ${pokemon.type}">
-                <span class="number">#${pokemon.number}</span>
-                <span class="name">${pokemon.name}</span>
-                <div class="detail">
-                    <ol class="types">
-                        ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                    </ol>
-                    <img src="${pokemon.photo}" alt="${pokemon.name}" />
-                </div>
-            </li>
-        `).join('');
+    const numberSpan = document.createElement('span');
+    numberSpan.classList.add('number');
+    numberSpan.textContent = `#${pokemon.number}`;
+    
+    const nameSpan = document.createElement('span');
+    nameSpan.classList.add('name');
+    nameSpan.textContent = pokemon.name;
 
-        pokemonList.innerHTML += newHTML; // Corrigido o nome da variável
+    const detailDiv = document.createElement('div');
+    detailDiv.classList.add('detail');
+
+    const typesOl = document.createElement('ol');
+    typesOl.classList.add('types');
+    pokemon.types.forEach(type => {
+        const liType = document.createElement('li');
+        liType.classList.add('type', type);
+        liType.textContent = type;
+        typesOl.appendChild(liType);
+    });
+
+    const img = document.createElement('img');
+    img.src = pokemon.photo;
+    img.alt = pokemon.name;
+
+    detailDiv.appendChild(typesOl);
+    detailDiv.appendChild(img);
+
+    li.appendChild(numberSpan);
+    li.appendChild(nameSpan);
+    li.appendChild(detailDiv);
+
+    return li;
+}
+
+function loadPokemonItems(offset, limit) {
+    pokeApi.getPokemons(offset, limit).then(pokemons => {
+        pokemons.forEach(pokemon => {
+            pokemonList.appendChild(createPokemonElement(pokemon));
+        });
     });
 }
 
-// Carrega os primeiros 5 Pokémons
-loadPokemonItens(offset, limit);
+loadPokemonItems(offset, limit);
 
 loadMoreButton.addEventListener('click', () => {
-    offset += limit; // Atualiza o offset para carregar os próximos Pokémons
-    
-    const qtdRecordNextPage = offset + limit
-
-    if (qtdRecordNextPage >= maxRecords){
-        const newLimit = maxRecords - offset
-        loadPokemonItens(offset, newLimit);        
-        loadMoreButton.parentElement.removeChild(loadMoreButton)
-    }else{
-        loadPokemonItens(offset, limit);     
-    }    
+    offset += limit;
+    loadPokemonItems(offset, limit);
 });
 
-
-
-
-/*
-.then() é executado quando a Promise é resolvida com sucesso (por exemplo, quando a requisição foi feita com sucesso).
-    .then(function(response){
-
-    A resposta da requisição (response) é um objeto Response.
-    O método .json() converte a resposta para JSON (pois é geralmente o formato de dados retornado pelas APIs).
-    O .json() também retorna uma Promise, por isso, o próximo .then() vai lidar com os dados convertidos.
-
-        return response.json()
-    })
- 
-    O segundo .then() é chamado quando a Promise do primeiro .then() foi resolvida.
-.then(function(jsonBody){
- 
- Aqui, os dados convertidos para JSON são manipulados.
-O 'jsonBody' contém os dados retornados da API em formato JSON.
-    console.log(jsonBody);  // Exibe os dados no console.
-})
- 
-.catch() é executado se a Promise for rejeitada em qualquer etapa anterior.
-.catch(function(error){
-    Caso ocorra um erro (por exemplo, falha na requisição ou erro ao tentar converter a resposta para JSON),
-    o erro será capturado aqui.
-        console.error(error);  // Exibe o erro no console.
-})
-
-.finally() é executado independentemente de a Promise ter sido resolvida ou rejeitada.
-.finally(function(){
-    Esse bloco é sempre chamado no final, seja o resultado uma execução bem-sucedida ou erro.
-    Pode ser usado para tarefas de "limpeza", como ocultar indicadores de carregamento ou mensagens de status.
-console.log('Requisição concluída');  // Exibe uma mensagem indicando que a requisição foi finalizada.
-})
-
-
-.then(): Manipula o sucesso da Promise. O primeiro .then() lida com a resposta da requisição e a converte para JSON. O segundo .then() manipula os dados no formato JSON.
-.catch(): Captura e exibe erros que podem ocorrer durante o processo (erro na requisição ou na conversão para JSON).
-.finally(): Executa um código de "finalização", independentemente de ter ocorrido sucesso ou erro na Promise. Neste caso, apenas imprime uma mensagem no console.
-*/
+// Open stats page
+function goToDetails(pokemonId) {
+    window.location.href = `stats.html?id=${pokemonId}`;
+}
