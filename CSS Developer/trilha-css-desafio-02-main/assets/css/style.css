@@ -1,0 +1,188 @@
+* {
+    padding:0;
+    margin:0;
+    vertical-align:baseline;
+    list-style:none;
+    border:0;
+    background-color: #1F1F1F;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+/*NAVEGADOR*/
+nav {
+    display: flex;
+    width: 100%;
+    height: 56px;
+    justify-content: space-between;
+}
+
+#menu, #busca, #perfil{
+    display: flex;
+    margin: 16px 24px;
+}
+
+#menu{
+    width: 146px;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+button img{
+    width: 24px;
+    height: auto;
+    align-items: center;
+    background-color: transparent;
+}
+
+#icon-youtube img{
+    width: 90px;
+    height: auto;
+}
+
+#busca{
+    width: 415px;
+    height: 37px;
+}
+
+#busca input{
+    width: 370px;
+    height: 35px;
+    border: 1px solid #575757;
+    border-radius: 40px 0px 0px 40px;
+    padding: 0px 20px;
+    color: white;
+}
+
+#busca button {   
+    background-color: #3a3a3a;
+    width: 45px;
+    padding-right: 5px;
+    height: 37px;
+    border: 1px solid #575757;
+    border-radius: 0px 40px 40px 0px;
+}
+
+#perfil {
+    width: 150px;
+    height: 34px;
+    justify-content:space-around;
+}
+
+#perfil-pessoal img{
+    width: 34px;
+    height: auto;
+}
+/*CONTEÚDO*/
+main{
+    display: flex;
+    margin: 20px 50px ;
+    gap: 50px;
+}
+
+#escopo-principal{
+    display: flex;
+    width: 952px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+iframe {
+    border-radius: 10px;
+    box-shadow: 0 0 40px #64626286;
+}
+
+#titulo-video{
+    color: white;
+    font-weight:600;
+    font-size: 20px;
+    background-color: transparent;
+}
+#video-actions{
+    display: flex;
+    background-color: transparent;
+}
+
+#perfil-canal{
+    display: flex;
+    gap: 10px;
+}
+
+#canal{
+    display: flex;
+    flex-direction: column;
+}
+
+#channel-infos{
+    display: flex;
+    width:940px;
+    justify-content: space-between
+}
+#channel-infos img{
+    width: 42px;
+    height: 42px;
+}
+#channel-infos a, p {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform:uppercase;
+}
+
+#channel-infos p {
+    font-weight: 300;
+    text-transform:lowercase;
+}
+
+#subscrever {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #ffffff;
+    opacity: 0.7;
+    width: 163.45px;
+    height: 40px;
+    border-radius: 24px;
+    color: #1F1F1F;
+}
+
+.button-info{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#channel-infos button img{
+    width: 24px;
+    height: 24px;
+}
+
+#descricao-clipe{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: #57575752;    
+}
+
+#descricao-clipe p, h2{
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #ffffff;
+    background-color: transparent;
+}
+
+#escopo-secundario{
+    display: flex;
+    width: 372px;
+    flex-direction: column;
+    gap: 10px;
+}
+#escopo-secundario img{
+    width: auto;
+    height: 90px;
+    border-radius: 10px;
+}
